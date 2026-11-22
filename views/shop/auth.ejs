@@ -1,0 +1,25 @@
+﻿<%- include('../partials/header') %>
+<div class="panel" style="max-width:460px;margin:auto;">
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <a class="btn <%= mode === 'login' ? '' : 'btn-soft' %>" href="/login">เข้าสู่ระบบ</a>
+    <a class="btn <%= mode === 'register' ? '' : 'btn-soft' %>" href="/register">สมัครสมาชิก</a>
+  </div>
+  <% if (error) { %><p class="error"><%= error %></p><% } %>
+  <% if (mode === 'login') { %>
+    <form method="post" action="/login" class="stack">
+      <label>ชื่อผู้ใช้ (Username)<input name="username" required></label>
+      <label>รหัสผ่าน<input type="password" name="password" required></label>
+      <button type="submit">เข้าสู่ระบบ</button>
+    </form>
+    <p style="font-size:12px;margin-top:10px;">ลูกค้าทดสอบ: <code>customer01</code> / <code>1234</code></p>
+  <% } else { %>
+    <form method="post" action="/register" class="stack">
+      <label>ชื่อผู้ใช้ (Username)<input name="username" required></label>
+      <label>ชื่อผู้ซื้อ (สมมติ)<input name="fullName" required></label>
+      <label>เบอร์โทร (สมมติ)<input name="phone" required></label>
+      <label>รหัสผ่าน<input type="password" name="password" required minlength="4"></label>
+      <button type="submit">สมัครสมาชิก</button>
+    </form>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>

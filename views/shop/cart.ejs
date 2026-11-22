@@ -1,0 +1,31 @@
+﻿<%- include('../partials/header') %>
+<h1>ตะกร้าสินค้า</h1>
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+<div class="panel">
+  <% items.forEach(i => { %>
+    <div class="row-between" style="padding:10px 0;border-bottom:1px solid #fce7f3;">
+      <span><%= i.product.name %> × <%= i.quantity %></span>
+      <div>
+        <strong>฿<%= (i.product.price * i.quantity).toLocaleString('th-TH') %></strong>
+        <form method="post" action="/cart/remove/<%= i.product.id %>" style="display:inline;margin-left:8px;">
+          <button class="btn-danger">ลบ</button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+  <h2>รวม ฿<%= total.toLocaleString('th-TH') %></h2>
+  <% if (items.length) { %>
+    <% if (!currentUser || currentUser.role !== 'customer') { %>
+      <p>กรุณา <a href="/login">เข้าสู่ระบบลูกค้า</a> ก่อนยืนยันคำสั่งซื้อ</p>
+    <% } else { %>
+      <form method="post" action="/checkout" class="stack">
+        <label>ชื่อผู้ซื้อ<input name="customerName" required value="<%= currentUser.fullName %>"></label>
+        <label>เบอร์โทร<input name="phone" required value="<%= currentUser.phone %>"></label>
+        <button type="submit">ยืนยันคำสั่งซื้อ</button>
+      </form>
+    <% } %>
+  <% } else { %>
+    <p>ยังไม่มีสินค้าในตะกร้า</p>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,13 @@
+﻿<%- include('../partials/header') %>
+<a class="btn btn-soft" href="/">← กลับหน้าร้าน</a>
+<div class="card" style="margin-top:14px;max-width:640px;">
+  <span class="chip"><%= product.category %></span>
+  <h1><%= product.name %></h1>
+  <p><%= product.description %></p>
+  <p class="price">฿<%= product.price.toLocaleString('th-TH') %></p>
+  <p>คงเหลือ <%= product.stock %> ชิ้น</p>
+  <form method="post" action="/cart/add/<%= product.id %>">
+    <button <%= product.stock === 0 ? 'disabled' : '' %>>เพิ่มลงตะกร้า</button>
+  </form>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,9 @@
+﻿<%- include('../partials/header') %>
+<div class="card">
+  <h1>สั่งซื้อสำเร็จ</h1>
+  <p>เลขคำสั่งซื้อ: <code><%= order.id %></code></p>
+  <p>ยอดรวม: <strong>฿<%= order.total.toLocaleString('th-TH') %></strong></p>
+  <a class="btn" href="/orders">ดูประวัติคำสั่งซื้อ</a>
+  <a class="btn btn-soft" href="/">กลับหน้าร้าน</a>
+</div>
+<%- include('../partials/footer') %>

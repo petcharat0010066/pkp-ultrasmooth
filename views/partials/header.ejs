@@ -1,0 +1,33 @@
+﻿<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PKP ULTRASMOOT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <a href="/">🍦 PKP ULTRASMOOT</a>
+  <nav>
+    <% if (isAdmin) { %>
+      <a href="/admin">จัดการสินค้า</a>
+      <a href="/admin/orders">คำสั่งซื้อ</a>
+      <a href="/">หน้าร้าน</a>
+      <span>👑 <%= currentUser.username %></span>
+      <form method="post" action="/logout" style="display:inline"><button class="btn-danger">ออกจากระบบ</button></form>
+    <% } else { %>
+      <a href="/">หน้าร้าน</a>
+      <a href="/cart">ตะกร้า (<%= cartCount %>)</a>
+      <% if (currentUser) { %>
+        <a href="/orders">ประวัติคำสั่งซื้อ</a>
+        <span>🌸 <%= currentUser.username %></span>
+        <form method="post" action="/logout" style="display:inline"><button class="btn-danger">ออกจากระบบ</button></form>
+      <% } else { %>
+        <a href="/login">เข้าสู่ระบบ / สมัครสมาชิก</a>
+      <% } %>
+    <% } %>
+  </nav>
+</header>
+<main>

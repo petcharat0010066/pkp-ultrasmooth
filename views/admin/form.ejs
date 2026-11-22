@@ -1,0 +1,13 @@
+﻿<%- include('../partials/header') %>
+<h1><%= product && product._id ? 'แก้ไขสินค้า' : 'เพิ่มสินค้า' %></h1>
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+<form method="post" action="<%= product && product._id ? '/admin/products/' + product._id + '/edit' : '/admin/products' %>" class="panel stack">
+  <label>ชื่อ<input name="name" required maxlength="100" value="<%= product?.name || '' %>"></label>
+  <label>หมวด<input name="category" value="<%= product?.category || 'นมและครีม' %>"></label>
+  <label>รายละเอียด<textarea name="description"><%= product?.description || '' %></textarea></label>
+  <label>ราคา<input type="number" min="0" step="0.01" name="price" required value="<%= product?.price ?? '' %>"></label>
+  <label>จำนวนคงเหลือ<input type="number" min="0" step="1" name="stock" required value="<%= product?.stock ?? '' %>"></label>
+  <button type="submit">บันทึก</button>
+  <a class="btn btn-soft" href="/admin">กลับ</a>
+</form>
+<%- include('../partials/footer') %>

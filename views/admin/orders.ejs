@@ -1,0 +1,19 @@
+﻿<%- include('../partials/header') %>
+<div class="row-between" style="margin-bottom:14px;">
+  <h1>คำสั่งซื้อทั้งหมด</h1>
+  <a class="btn btn-soft" href="/admin">กลับหน้าจัดการ</a>
+</div>
+<% orders.forEach(o => { %>
+  <div class="card">
+    <strong>Order: <code><%= o.id %></code></strong>
+    <p><%= o.customerName %> | <%= o.phone %></p>
+    <ul>
+      <% o.items.forEach(i => { %>
+        <li><%= i.name %> × <%= i.quantity %> = ฿<%= (i.unitPrice * i.quantity).toLocaleString('th-TH') %></li>
+      <% }) %>
+    </ul>
+    <strong>รวม ฿<%= o.total.toLocaleString('th-TH') %></strong>
+  </div>
+<% }) %>
+<% if (!orders.length) { %><p>ยังไม่มีคำสั่งซื้อ</p><% } %>
+<%- include('../partials/footer') %>

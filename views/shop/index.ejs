@@ -1,0 +1,45 @@
+﻿<%- include('../partials/header') %>
+<div class="banner">
+  <div>
+    <h1>🍦 PKP ULTRASMOOT</h1>
+    <p>ไอศกรีมโฮมเมด 30 รสชาติ (แสดงชื่อรสชาติ ราคา และจำนวนคงเหลือ)</p>
+  </div>
+  <div>แสดง <%= products.length %> รสชาติ</div>
+</div>
+
+<div class="panel">
+  <form method="get" action="/" style="display:flex;gap:8px;">
+    <input name="q" value="<%= q %>" placeholder="ค้นหาชื่อรสชาติไอศกรีม...">
+    <input type="hidden" name="category" value="<%= category %>">
+    <button type="submit">ค้นหา</button>
+  </form>
+  <div class="cats">
+    <% CATEGORIES.forEach(c => { %>
+      <a class="chip <%= category === c ? 'active' : '' %>" href="/?category=<%= encodeURIComponent(c) %>&q=<%= encodeURIComponent(q) %>"><%= c %></a>
+    <% }) %>
+  </div>
+</div>
+
+<div class="grid">
+  <% products.forEach(p => { const st = getFlavorStyle(p.category); %>
+    <article class="card">
+      <div class="scoop-box" style="background:<%= st.bg %>">
+        <span class="chip"><%= p.category %></span>
+        <svg width="42" height="42" viewBox="0 0 100 100"><path d="M32 52 L50 92 L68 52 Z" fill="#f5c28b"/><circle cx="50" cy="40" r="22" fill="<%= st.scoop %>"/></svg>
+      </div>
+      <h2><%= p.name %></h2>
+      <p><%= p.description %></p>
+      <div class="row-between">
+        <span class="price">฿<%= p.price.toLocaleString('th-TH') %></span>
+        <span>เหลือ <%= p.stock %> ชิ้น</span>
+      </div>
+      <div class="actions-2">
+        <a class="btn btn-soft" href="/products/<%= p.id %>">รายละเอียด</a>
+        <form method="post" action="/cart/add/<%= p.id %>">
+          <button style="width:100%" <%= p.stock === 0 ? 'disabled' : '' %>>เพิ่มลงตะกร้า</button>
+        </form>
+      </div>
+    </article>
+  <% }) %>
+</div>
+<%- include('../partials/footer') %>

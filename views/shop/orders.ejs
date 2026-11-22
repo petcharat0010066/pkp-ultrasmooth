@@ -1,0 +1,19 @@
+﻿<%- include('../partials/header') %>
+<h1>ประวัติคำสั่งซื้อของฉัน</h1>
+<% orders.forEach(o => { %>
+  <div class="card">
+    <div class="row-between">
+      <strong>Order: <code><%= o.id %></code></strong>
+      <span><%= o.status %></span>
+    </div>
+    <p><%= o.customerName %> | <%= o.phone %></p>
+    <ul>
+      <% o.items.forEach(i => { %>
+        <li><%= i.name %> × <%= i.quantity %> = ฿<%= (i.unitPrice * i.quantity).toLocaleString('th-TH') %></li>
+      <% }) %>
+    </ul>
+    <strong>รวม ฿<%= o.total.toLocaleString('th-TH') %></strong>
+  </div>
+<% }) %>
+<% if (!orders.length) { %><p>ยังไม่มีคำสั่งซื้อ</p><% } %>
+<%- include('../partials/footer') %>
